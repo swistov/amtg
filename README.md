@@ -50,6 +50,27 @@ Dev mode:
 uvicorn app:app --port 19000 --log-level trace --reload
 ```
 
+# Docker
+
+## Build
+
+```bash
+docker build -t <repo>:<tag>  -f docker/Dockerfile .
+```
+
+## Configuration
+
+Environment variables
+
+variable | default | description
+---|---|---
+BIND_ADDRESS | 0.0.0.0:19000 | gunicorn bind address
+LOG_LEVEL | info | gunicorn log level
+DEBUG | false |  debug mode
+TIMEOUT | 10 sec | gunicorn timeout
+DESTINATION_CHAT_ID | none | telegram chat id for notifications 
+TELEGRAM_BOT_TOKEN | | Telegram API Token
+
 # Licence
 
 MIT
