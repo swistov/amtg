@@ -24,7 +24,9 @@ jinjaenv = jinja2.Environment(loader=jinja_loader, autoescape=True, enable_async
 
 
 def iso8601_to_time(value):
-    return datetime.datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%fZ")
+    dtms, tz = value.split('+')
+    dt, _ = dtms.split('.')
+    return datetime.datetime.fromisoformat(f'{dt}.000+{tz}')
 
 
 def datetimeformat(value, format='%Y-%m-%d %H:%M:%S'):
@@ -42,7 +44,6 @@ notifier.add_channel(
         chat_id=DESTINATION_CHAT_ID
     )
 )
-
 
 async def prepare_message_text(event: Event) -> str:
     t = jinjaenv.get_template('alert.j2')

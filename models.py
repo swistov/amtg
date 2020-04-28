@@ -9,14 +9,15 @@ class Alert(BaseModel):
     generatorURL: str
     labels: dict
     startsAt: str
+    status: str
 
 
 class Event(BaseModel):
-    alerts: List[Alert]
+    alerts: List[Alert] = None
     commonAnnotations: dict = None
     commonLabels: dict = None
     externalURL: str
-    groupKey: int
+    groupKey: str
     groupLabels: dict = None
     receiver: str
     status: str
