@@ -1,0 +1,17 @@
+*Grouped for*
+{% for key, val in groupLabels.items() -%}
+    {{ key }} = *{{ val }}*
+{% endfor %}
+{% if status == "firing" -%}
+Status: *{{ status|upper }}* 🔥
+{% endif -%}
+{% if status == "resolved" -%}
+Status: *{{ status|upper }}* ✅
+{% endif -%}
+*Active Alert List:*
+  {% for alert in alerts -%}
+  Active from: {{ alert.startsAt|iso8601_to_time|datetimeformat }}
+  {% for key, value in alert.annotations.items() -%}
+     *{{ key }}*: {{ value }}
+  {% endfor -%}
+  {% endfor -%}
