@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List
 
 from pydantic import BaseModel
@@ -22,3 +23,13 @@ class Event(BaseModel):
     receiver: str
     status: str
     version: str
+
+
+class Health(BaseModel):
+    status: str
+    datetime: datetime
+
+
+class BotHealth(BaseModel):
+    status: str
+    bot: dict

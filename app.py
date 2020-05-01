@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from starlette.background import BackgroundTasks
 from starlette.config import Config
 
-from models import Event
+from models import Event, Health, BotHealth
 from notifications import TelegramNotificationChannel, notifier
 
 config = Config(".env")
@@ -39,6 +39,7 @@ notifier.add_channel(
     )
 )
 
+
 async def prepare_message_text(event: Event) -> str:
     t = jinjaenv.get_template('alert.j2')
     return await t.render_async(event)
@@ -52,3 +53,28 @@ async def handle_event(event: Event) -> None:
 @app.post('/alert')
 async def handle_alert_webhook(event: Event, background_tasks: BackgroundTasks):
     background_tasks.add_task(handle_event, event)
+
+
+@app.get('/__health', response_model=Health)
+async def health_check():
+
+    return {
+        'datetime': datetime.datetime.now(),
+        'status': 'ok',
+    }
+
+
+@app.get('/__bot', response_model=BotHealth)
+async def bot_check():
+    status = 'active'
+    bot_meta = {}
+    try:
+        user = await bot.get_me()
+        bot_meta = user.to_python()
+    except Exception:
+        status = 'inactive'
+
+    return {
+        'status': status,
+        'bot': bot_meta
+    }

@@ -1,8 +1,8 @@
 # Description
 
-Experimental service for redirecting AlertManager and sending notification to Telegram Chats
+Experimental service for recieving, processing events from AlertManager and sending notification to Telegram Chats
 
-Provives an `/alert` endpoint, that is used for recieving request from AlertManager
+Provides an `/alert` endpoint, that is used for recieving events from AlertManager. 
 
 Project status: not even alpha
 
