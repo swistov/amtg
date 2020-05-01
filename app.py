@@ -1,7 +1,6 @@
 import datetime
 from typing import List
 import asyncio
-import threading
 
 import jinja2
 from aiogram import Bot
@@ -24,15 +23,10 @@ DESTINATION_CHAT_ID = config('DESTINATION_CHAT_ID', cast=str, default='')
 app = FastAPI(debug=DEBUG)
 app.registry = Registry()
 
-THREAD_ID = str(threading.currentThread().native_id)
-
-const_labels = {'thread_id': THREAD_ID}
 app.request_counter = Counter("amtg_total_requests",
-                              "Number of requests to endpoints",
-                              const_labels=const_labels)
+                              "Number of requests to endpoints")
 app.bot_activity = Gauge("amtg_telegram_bot_active",
-                         "Flag that indicates is TG Bot active or not",
-                         const_labels=const_labels)
+                         "Flag that indicates is TG Bot active or not")
 
 app.registry.register(app.request_counter)
 app.registry.register(app.bot_activity)
