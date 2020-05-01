@@ -28,8 +28,3 @@ class Event(BaseModel):
 class Health(BaseModel):
     status: str
     datetime: datetime
-
-
-class BotHealth(BaseModel):
-    status: str
-    bot: dict
