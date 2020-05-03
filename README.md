@@ -8,7 +8,7 @@ Project status: not even alpha
 
 # Install
 ```bash
-pip install -r requirements
+pip install -r requirements.txt
 cp .env.exaple .env
 ```
 
